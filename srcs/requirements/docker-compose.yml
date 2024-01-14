@@ -1,0 +1,55 @@
+version: '3'
+
+volumes:
+  wordpress:
+    name: wordpress
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./wordpress
+
+services:
+  nginx:
+    container_name: nginx
+    build: ./nginx
+    ports:
+      - 8080:443  # Adjust the port as needed
+    depends_on:
+      - wordpress
+    volumes:
+      - wordpress:/var/www/html
+    networks:
+      - mynetwork
+    env_file:
+      - ../../.env
+    restart: always
+    
+
+  wordpress:
+    container_name: wordpress
+    build: ./wordpress
+    ports:
+      - 9000:9000  # Adjust the port as needed
+    networks:
+      - mynetwork
+    volumes:
+      - wordpress:/var/www/html
+    env_file:
+      - ../../.env
+    restart: always
+
+  # mysql:
+  #   image: mysql
+  #   networks:
+  #     - mynetwork
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: example_root_password
+  #     MYSQL_DATABASE: example_db
+  #     MYSQL_USER: example_user
+  #     MYSQL_PASSWORD: example_password
+
+networks:
+  mynetwork:
+    name: mynetwork
+    driver: bridge
