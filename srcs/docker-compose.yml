@@ -1,0 +1,68 @@
+version: '3'
+
+services:
+  mariadb:
+    container_name: mariadb
+    build:
+      context: requirements/mariadb
+      dockerfile: Dockerfile
+    volumes:
+      - mariadb:/var/lib/mysql
+    networks:
+      - mynetwork
+    env_file:
+      - ../.env
+    restart: always
+
+  nginx:
+    container_name: nginx
+    build:
+      context: requirements/nginx
+      dockerfile: Dockerfile
+    ports:
+      - 8080:443  # Adjust the port as needed
+    depends_on:
+      - wordpress
+    volumes:
+      - wordpress:/var/www/wordpress
+    networks:
+      - mynetwork
+    env_file:
+      - ../.env
+    restart: always
+
+  wordpress:
+    container_name: wordpress
+    build:
+      context: requirements/wordpress
+      dockerfile: Dockerfile
+    ports:
+      - 9000:9000  # Adjust the port as needed
+    networks:
+      - mynetwork
+    volumes:
+      - wordpress:/var/www/wordpress
+    env_file:
+      - ../.env
+    restart: always
+
+volumes:
+  wordpress:
+    name: wordpress
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/edrouot/Desktop/Core_curriculum/Inception/srcs/requirements/wordpress
+  mariadb:
+    name: mariadb
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: //home/edrouot/Desktop/Core_curriculum/Inception/srcs/requirements/maria_db
+
+networks:
+  mynetwork:
+    name: mynetwork
+    driver: bridge

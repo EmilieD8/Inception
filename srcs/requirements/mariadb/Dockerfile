@@ -12,6 +12,6 @@ RUN chmod +x auto_config.sh
 
 EXPOSE 3306
 
-# CMD ["bash", "auto_config.sh"]
+RUN ./auto_config.sh
 
-CMD ["sleep", "infinity"]
+CMD ["mysqld_safe"]
