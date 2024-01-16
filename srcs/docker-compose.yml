@@ -53,14 +53,14 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/edrouot/Desktop/Core_curriculum/Inception/srcs/requirements/wordpress
+      device: /home/edrouot/data/wordpress
   mariadb:
     name: mariadb
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: //home/edrouot/Desktop/Core_curriculum/Inception/srcs/requirements/maria_db
+      device: /home/edrouot/data/mariadb
 
 networks:
   mynetwork:
