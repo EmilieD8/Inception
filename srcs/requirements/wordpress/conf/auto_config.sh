@@ -1,43 +1,16 @@
 #!/bin/bash
-sleep 10
+
+sleep 20
 
 cd /var/www/wordpress
+	
+wp core config --dbhost=$MYSQL_HOSTNAME --dbname=$MYSQL_DATABASE --dbuser=$MYSQL_USER \
+	--dbpass=$MYSQL_PASSWORD --allow-root
 
-# # if [ ! -e /var/www/wordpress/wp-config.php ]; then
-    wp core config --dbname=$MYSQL_DATABASE --dbuser=$MYSQL_USER --dbpass=$MYSQL_PASSWORD  --allow-root --dbhost=$MYSQL_HOSTNAME
-    sleep 2
-    wp core install --url=$DOMAIN_NAME --title=$TITLE_SITE --admin_user=$ADMIN_USER --admin_password=$ADMIN_PASSWORD --admin_email=$ADMIN_EMAIL --allow-root
-    wp user create $USER_NAME $USER_EMAIL --user_pass=$USER_PASSWORD --role=author --allow-root >> /log.txt
-# # fi
+wp core install --title=$TITLE_SITE --admin_user=$ADMIN_USER --admin_password=$ADMIN_PASS \
+	--admin_email=$ADMIN_MAIL --url=$DOMAIN_NAME --allow-root
 
-# if [ ! -e /var/www/wordpress/wp-config.php ]; then
-#     echo "Creating wp-config.php"
-#     echo "database name: $MYSQL_DATABASE"
-#     sed -i "s/username_here/$MYSQL_USER/g" /var/www/wordpress/wp-config-sample.php
-# 	sed -i "s/password_here/$MYSQL_PASSWORD/g" /var/www/wordpress/wp-config-sample.php
-# 	sed -i "s/localhost/$MYSQL_HOSTNAME/g" /var/www/wordpress/wp-config-sample.php
-# 	sed -i "s/database_name_here/$MYSQL_DATABASE/g" /var/www/wordpress/wp-config-sample.php
-# 	cp /var/www/wordpress/wp-config-sample.php /var/www/wordpress/wp-config.php
-# # fi
-cd -
-
-# if [ ! -e /var/www/wordpress/wp-config.php ]; then
-#     echo "Creating wp-config.php"
-#     echo "database name: $MYSQL_DATABASE"
-#     sed -i "s/username_here/$MYSQL_USER/g" /var/www/wordpress/wp-config-sample.php
-# 	sed -i "s/password_here/$MYSQL_PASSWORD/g" /var/www/wordpress/wp-config-sample.php
-# 	sed -i "s/localhost/$MYSQL_HOSTNAME/g" /var/www/wordpress/wp-config-sample.php
-# 	sed -i "s/database_name_here/$MYSQL_DATABASE/g" /var/www/wordpress/wp-config-sample.php
-# 	cp /var/www/wordpress/wp-config-sample.php /var/www/wordpress/wp-config.php
-#     echo "End of wp-config.php"
-# fi
-
-exec "$@"
+wp user create $MYSQL_USER $USER_MAIL --role=author --user_pass=$MYSQL_PASSWORD --allow-root
 
 
-
-# if [ ! -d /run/php ]; then
-#     mkdir -p /run/php
-# fi
-
-# /usr/sbin/php-fpm7.3 -F
+/usr/sbin/php-fpm7.3 -F
