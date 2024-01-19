@@ -27,9 +27,7 @@ RUN chown -R root:root /var/www/wordpress
 
 RUN curl https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar --output /usr/bin/wp --silent 
 
-RUN chmod +x ./usr/bin/wp
-
-# RUN mv wp-cli.phar /usr/local/bin/wp
+RUN chmod +x /usr/bin/wp
 
 RUN mkdir /run/php
 
@@ -37,8 +35,8 @@ COPY ./conf/auto_config.sh /var/www/wordpress/auto_config.sh
 
 RUN chmod +x /var/www/wordpress/auto_config.sh
 
-RUN /var/www/wordpress/auto_config.sh
+WORKDIR /var/www/wordpress
 
 EXPOSE 9000
 
-CMD ["/usr/sbin/php-fpm7.3", "-F"]
+CMD ["bash", "./auto_config.sh"]
