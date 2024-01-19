@@ -12,6 +12,4 @@ RUN chmod +x auto_config.sh
 
 EXPOSE 3306
 
-RUN ./auto_config.sh
-
-CMD ["mysqld"]
+ENTRYPOINT ["bash", "auto_config.sh"]
