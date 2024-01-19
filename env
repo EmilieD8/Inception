@@ -1,16 +1,14 @@
-DOMAIN_NAME=edrouot.42.fr
+DOMAIN_NAME="htpps://localhost"
 
-MYSQL_HOSTNAME=mariadb
-MYSQL_DATABASE=inception
-MYSQL_USER=edrouot
-MYSQL_PASSWORD=incep_pass123
-MYSQL_ROOT_PASSWORD=incep_root_pass123
+MYSQL_HOSTNAME="mariadb"
+MYSQL_DATABASE="inception"
+MYSQL_USER="edrouot"
+MYSQL_PASSWORD="incep_pass123"
+MYSQL_ROOT_PASSWORD="incep_root_pass123"
 
-TITLE_SITE="Mimi's Inception"
+TITLE_SITE="Inception"
 ADMIN_USER="Emilie"
 ADMIN_PASS="Emilie123"
 ADMIN_MAIL="edrouot@student.42berlin.de"
 
-USER_LOGIN="Jean"
-USER_PASS="Jean123"
 USER_MAIL="sdfsd2344234@gmail.com"
