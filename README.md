@@ -2,4 +2,6 @@
 
 Instructions: 
 - Launch in a virtual machine
-- make
+- Use command docker-up
+
+Env file is provided for training purposes only. 
